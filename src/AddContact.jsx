@@ -1,6 +1,22 @@
 import React from 'react';
 
 class AddComponent extends React.Component{
+  state = {
+    name: "",
+    email: "",
+  };
+
+  add = (e) => {
+    e.preventDefault();
+    if (this.state.name === "" || this.state.email === "") {
+      alert("All the flieds are mandetory!");
+      return;
+    }
+    this.props.addContactHandler(this.state);
+    this.setState({name: "", email: ""});
+    //console.log(this.state);
+  };
+
   render() {
     return(
       <div className='ui main'>
@@ -9,15 +25,26 @@ class AddComponent extends React.Component{
 
           <div className='field'>
             <label>Name: </label>
-            <input type="text" name='name' placeholder='Name'/>
+            <input
+            type="text"
+            name='name'
+            placeholder='Name'
+            value = {this.state.name}
+            onChange={(e) => this.setState({name: e.target.value})} />
           </div>
 
           <div className='field'>
             <label>E-mail: </label>
-            <input type="text" name='email' placeholder='E-mail'/>
+            <input  
+            type="text" 
+            name='email' 
+            placeholder='E-mail'
+            value={this.state.email}
+            onChange={(e) => this.setState({email: e.target.value})}/>
           </div>
 
-          <div className='ui button blue'>Add</div>
+          {/* <div className='ui button blue'>Add</div> */}
+          <button onClick={this.add} className='ui button blue'>Add</button>
         </form>
       </div>
     )
